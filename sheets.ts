@@ -196,38 +196,33 @@ function getResponses() : [votes: Voter[], warnings: string[]]{
     const data = sheet.getRange('A:Z').getValues();
     const allowedStudents = getAllowedStudents();
     console.log(allowedStudents);
-    let rid = 1;
     const warnings = [];
-    while(true){
-        if(checkRowEmpty(data[rid])) break;
-        const row = data[rid];
+    for(let i = 1; i < data.length; i++){
+        if(checkRowEmpty(data[i])) continue;
+        const row = data[i];
         const id = emailParser(row[keyMap.get('Email Address')]);
         if(id == null){
-            sheet.getRange(`${rid+1}:${rid+1}`).setBackground('red');
-            warnings.push(`Failed to parse GAPPS Id: ${row[1]} on row ${rid+1}`);
-            rid++;
+            sheet.getRange(`${i+1}:${i+1}`).setBackground('red');
+            warnings.push(`Failed to parse GAPPS Id: ${row[1]} on row ${i+1}`);
             continue;
         }
         if(users.has(id)){
-            sheet.getRange(`${rid+1}:${rid+1}`).setBackground('orange');
-            warnings.push(`Duplicate GAPPS Id ${id} found on row ${rid+1}`);
-            rid++;
+            sheet.getRange(`${i+1}:${i+1}`).setBackground('orange');
+            warnings.push(`Duplicate GAPPS Id ${id} found on row ${i+1}`);
             continue;
         }
         if(!allowedStudents.has(id)){
-            sheet.getRange(`${rid+1}:${rid+1}`).setBackground('red');
-            rid++;
+            sheet.getRange(`${i+1}:${i+1}`).setBackground('red');
             continue;
         }
         const userObj = new Voter();
         userObj.studentId = id;
         userObj.votes = new Map<string, string[]>();
         for(let col = 0; col < keys.length; col++){
-            if(row[col] == 'Timestamp' || row[col] == 'Email Address') continue;
+            if(keys[col] == 'Timestamp' || keys[col] == 'Email Address') continue;
             userObj.votes.set(parseField(keys[col]), row[col].split(', '));
         }
         users.set(id, userObj);
-        rid++;
     }
     return [Array.from(users.values()), warnings];
 }

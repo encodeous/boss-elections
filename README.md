@@ -1,4 +1,4 @@
-# `BOSS Election Counter`
+# `BOSS Electronic Voting System`
 This script was written for Thornhill Secondary School to filter and count votes for the Board of Student Senator elections. The following instructions are specific to Thornhill Secondary School, and may not be applicable for all use.
 
 ***Before following these instructions (if applicable), make a copy of the Google Sheet. Copy the newly made form & sheet into another folder, then open the new sheet and follow these instructions***
