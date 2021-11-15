@@ -1,7 +1,7 @@
 # `BOSS Electronic Voting System`
 This script was written for Thornhill Secondary School to filter and count votes for the Board of Student Senator elections. The following instructions are specific to Thornhill Secondary School, and may not be applicable for all use.
 
-***Before following these instructions (if applicable), make a copy of the Google Sheet. Copy the newly made form & sheet into another folder, then open the new sheet and follow these instructions***
+***Before following these instructions (if applicable), make a copy of the Google Sheet. Copy the newly made form & sheet into another folder, then open the new sheet and follow these instructions.*** This Google Sheet is only accessible for Election Committee members at TSS. To create your own, follow the steps in section 3.3 first!
 
 ## `1.1 - Operating Instructions`
 1. Edit the attached Google Form to include the senator/executive positions. Make sure to enclose the position name in quotation marks. For example: _Vote for up to two candidates for "GRADE 11 SENATOR"_
