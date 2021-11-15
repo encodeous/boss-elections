@@ -9,7 +9,7 @@ This script was written for Thornhill Secondary School to filter and count votes
 2. To allow certain students to vote, paste in their GAPPS student ID (not including the email address, just the number) in the “Student No.” column of the "Allowed Students" tab.
    ![img.png](Images/img2.png)
 3. The form is now ready and should be tested before use. Follow the testing procedure outlined in *2.1*.
-4. Once the responses/ballots have been recorded, press the "Count Ballots" button under "BOSS Election" in the toolbar.
+4. Once the responses/ballots have been recorded, press the "Count Ballots" button under "BOSS Election" in the toolbar. It may ask you to authorize, click accept. **Make sure the script is only able to access the current spreadsheet, otherwise it is a sign that the script has been tampered with, and you should not use it.**
 ![img.png](Images/img3.png)
 5. The results should be recorded in a new tab called "Results".
 ![img.png](Images/img4.png)
