@@ -129,24 +129,29 @@ function generateReport(data: Voter[]){
         sheet = SpreadsheetApp.getActive().insertSheet('Results');
     }
 
+    // Aggregated result. Map of <position name, <candidate, votes>>
     let aggr = new Map<string, Map<string, number>>();
     for(let vote of data){
         for(let position of Array.from(vote.votes.keys())){
             let val = vote.votes.get(position);
+            // Check if position exists. If not, create it
             if(!aggr.has(position)){
                 aggr.set(position, new Map<string, number>())
             }
-            for(let candidate of val){
+            for (let candidate of val) {
+                // check if a position has a candidate
                 if(!aggr.get(position).has(candidate)){
                     aggr.get(position).set(candidate, 0);
                 }
+                // increment the candidate's vote by 1
                 aggr.get(position).set(candidate, aggr.get(position).get(candidate) + 1);
             }
         }
     }
 
     let idx = 1;
-    for(let position of Array.from(aggr.keys())){
+    for (let position of Array.from(aggr.keys())) {
+        // gets the frequency map of the current position.
         let freq = aggr.get(position);
         let candidates: Ranking[] = [];
         for(let candidate of Array.from(freq.keys())){
@@ -156,6 +161,7 @@ function generateReport(data: Voter[]){
             rnk.candidateName = candidate;
             candidates.push(rnk)
         }
+        // sort candidates by # of votes
         candidates.sort(compare);
         let heading = sheet.getRange(1, idx, 1, 2);
         heading.merge();
@@ -186,7 +192,7 @@ function getResponses() : [votes: Voter[], warnings: string[]]{
     if(sheet == null){
         return null;
     }
-    const keys = sheet.getRange('1:1').getValues()[0].filter(x => x !== '');
+    const keys = sheet.getRange('1:1').getValues()[0]);
     const keyMap = new Map<string, number>();
     for(let i = 0; i < keys.length; i++){
         keyMap.set(keys[i], i);
@@ -217,9 +223,10 @@ function getResponses() : [votes: Voter[], warnings: string[]]{
         }
         const userObj = new Voter();
         userObj.studentId = id;
+        // make a map of Map<position, voted-candidates[]>
         userObj.votes = new Map<string, string[]>();
         for(let col = 0; col < keys.length; col++){
-            if(keys[col] == 'Timestamp' || keys[col] == 'Email Address') continue;
+            if(keys[col] == 'Timestamp' || keys[col] == 'Email Address' || keys[col] === '') continue;
             userObj.votes.set(parseField(keys[col]), row[col].split(', '));
         }
         users.set(id, userObj);
